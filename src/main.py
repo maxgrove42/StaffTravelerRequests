@@ -41,23 +41,22 @@ try:
             # 'css-79elbk' is class of each request
             # 'backdropBlurPolyfill css-1x13gg3' indicates if the request is already taken
             if 'css-79elbk' in class_attribute and 'backdropBlurPolyfill css-1x13gg3' not in class_attribute:
+                EC.element_to_be_clickable((By.CLASS, "css-79elbk")).click()
                 
-                EC.element_to_be_clickable((By.CLASS, "css-79elbk"))).click()
                 #determine the flight information
-                chakra-text css-1m9eb7l = flight num with B6
-                chakra-text css-1tzeee1 = date
+                #chakra-text css-1m9eb7l = flight num with B6 prepending
+                #chakra-text css-1tzeee1 = date
                 flightNumber = driver.find_element_by_class_name('chakra-text css-1m9eb7l').text
                 flightDate = driver.find_element_by_class_name('chakra-text css-1tzeee1').text
     
-                seatSpaces = WebDriverWait(driver, 10).until(
+                seatSpacesToFillIn = WebDriverWait(driver, 10).until(
                     EC.presence_of_all_elements_located((By.CLASS_NAME, 'chakra-numberinput__field css-gal76r'))
                 )
-                for seatSpace in seatSpace:
+                for seatSpace in seatSpacesToFillIn:
+                    pass
                     #prepare the seatspaces to be filled in.
                 #here we need to click it and claim it.
                 #then send it to snowflake to get the seats available.
-                print('Flag: Element does not contain "backdropBlurPolyfill css-1x13gg3" class')
-        
         sleep(5)  # Sleep a bit to wait for future requests to come in.
 finally:
     driver.quit()
