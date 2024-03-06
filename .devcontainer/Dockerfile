@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 COPY . /app
 
 # Install Python dependencies from requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r ./requirements.txt
 
 # Make setup.sh executable and run it to install Chromium and ChromeDriver
 RUN chmod +x setup.sh && ./setup.sh
