@@ -14,7 +14,7 @@ class SnowConn:
     def __init__(self, user, role, warehouse, database, schema, database_url):
         self.conn = snowflake.connector.connect(
                 user=user,
-                account = database_url,  # JetBlue's snowflake database
+                account = database_url,  # Snowflake database website
                 role = role,
                 warehouse = warehouse,
                 database = database,
