@@ -11,12 +11,14 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy your project files into the container
-COPY . /app
-RUN ls .  # This will list the contents of /app in the build log
+# Copy the requirements.txt file into the working directory
+COPY requirements.txt .
 
-# Install Python dependencies from requirements.txt
+# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make setup.sh executable and run it to install Chromium and ChromeDriver
+# Copy the rest of your project files into the container
+COPY . .
+
+# Run setup.sh to install Chromium and ChromeDriver
 RUN chmod +x setup.sh && ./setup.sh
