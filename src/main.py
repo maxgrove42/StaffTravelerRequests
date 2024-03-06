@@ -15,8 +15,8 @@ from time import sleep
 driver = webdriver.Chrome()
 driver.get('https://stafftraveler.app/requests')
 
-USER_NAME = 'max.grove@jetblue.com'
-PASSWORD = 'Routeplan2023*'
+USER_NAME = 'XXXXX@jetblue.com'
+PASSWORD = 'XXXXX'
 
 try:
     wait = WebDriverWait(driver, 30)
