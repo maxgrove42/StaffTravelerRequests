@@ -1,6 +1,6 @@
 # StaffTraveler Automation Project
 
-This project provides an automated solution for interacting with available requests on the StaffTraveler website using Python and Selenium. It continuously monitors for new requests and attempts to lock them in automatically, helping users secure their desired listings more efficiently.
+This project provides an automated solution for JetBlue employees for interacting with available requests on the StaffTraveler website using Python and Selenium. It continuously monitors for new requests and attempts to lock requests in automatically, helping users respond to desired listings more efficiently.
 
 ## Prerequisites
 
