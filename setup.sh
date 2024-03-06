@@ -6,7 +6,7 @@ cd chromium
 
 # Download portable Chromium
 echo "Downloading Chromium..."
-wget -O chromium.zip [CHROMIUM_DOWNLOAD_URL]
+wget -O chromium.zip https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/linux64/chrome-headless-shell-linux64.zip
 # Unzip and remove the archive
 unzip chromium.zip
 rm chromium.zip
@@ -20,7 +20,7 @@ cd chromedriver
 
 # Download Chromedriver
 echo "Downloading Chromedriver..."
-wget -O chromedriver.zip [CHROMEDRIVER_DOWNLOAD_URL]
+wget -O chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/linux64/chromedriver-linux64.zip
 # Unzip and remove the archive
 unzip chromedriver.zip
 rm chromedriver.zip
