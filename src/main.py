@@ -15,9 +15,12 @@ import re
 chrome_options = Options()
 # Uncomment the next line if you want to run Chrome in headless mode
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")  # bypass OS security model
 
 # Initialize WebDriver with ChromeDriverManager
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+driver = webdriver.Chrome(service=Service('/root/.cache/selenium/chromedriver/linux64/122.0.6261.94/chromedriver'),
+                          options = chrome_options)
+
 
 driver.get('https://stafftraveler.app/requests')
 

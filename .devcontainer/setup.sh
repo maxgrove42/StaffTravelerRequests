@@ -6,7 +6,7 @@ cd chromium
 
 # Download portable Chromium
 echo "Downloading Chromium..."
-wget -O chromium.zip https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/linux64/chrome-headless-shell-linux64.zip
+wget -O chromium.zip https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/linux64/chrome-linux64.zip
 # Unzip and remove the archive
 unzip chromium.zip
 rm chromium.zip
