@@ -13,28 +13,27 @@ from datetime import datetime
 class SnowConn:
     def __init__(self, user, role, warehouse, database, schema, database_url):
         self.conn = snowflake.connector.connect(
-                user = user,
-                account = database_url, #JetBlue's snowflake database
+                user=user,
+                account = database_url,  # JetBlue's snowflake database
                 role = role,
                 warehouse = warehouse,
                 database = database,
                 schema = schema,
-                authenticator = 'externalbrowser', #authenticate using External Browser for Azure AD
+                authenticator = 'externalbrowser',  # authenticate using External Browser for Azure AD
                 autocommit = True)
 
     def __del__(self):
         self.conn.close()
         
-    def query_flight_for_standby(self, flight_number, flight_date):
+    def queryStandby(self, flight_number, flight_date):
         """
-        Queries the database for the total non-rev passengers on a flight
+        Queries the database for the total non-rev passengers on a flight\n
         
         Parameters:
         - flight_number (int): The flight number to query. Must be an integer.
         - flight_date (str): The start date of the service in 'YYYY-MM-DD' format.
         
-        Returns:
-        - The number of non-rev pax (integer)
+        Returns: The number of non-rev pax (integer)
         """
         # Validate flight_number
         if not isinstance(flight_number, int):
@@ -50,7 +49,7 @@ class SnowConn:
             
         cursor = self.conn.cursor()
         
-        #RL1 is myIdTravel agent sign
+        # RL1 is myIdTravel agent sign
         query = """select 
                         iff(MARKETING_CLASS_OF_SERVICE IN ('J', 'C', 'D', 'I'), 'J', 'Y') AS CABIN,
                         sum(F.NUMBER_IN_PARTY) as PAX
