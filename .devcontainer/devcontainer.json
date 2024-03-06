@@ -1,0 +1,16 @@
+{
+    "name": "My Codespace",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "settings": {
+        
+    },
+    "extensions": [
+        
+    ],
+    "postCreateCommand": "./setup.sh",
+    "forwardPorts": [
+        
+    ]
+}
