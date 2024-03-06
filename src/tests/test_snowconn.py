@@ -8,12 +8,12 @@ from src.snowconn import SnowConn
 class TestSnowConn(unittest.TestCase):
     def setUp(self):
         # Set up a SnowConn instance with mocked parameters
-        self.snow_conn = SnowConn('mg09329@jetblue.com',
+        self.snow_conn = SnowConn('XXXXX@jetblue.com',
                                   'ANALYST_ROUTE_PLANNING',
                                   'REPORTING_PRD_XS_WH',
                                   'ANALYTICS',
                                   'ANALYTICS',
-                                  'jetblue.east-us-2.azure')
+                                  'XXXX.XXXX-XX-X.XX')
 
     def test_query_flight_for_standby(self):
         # Call the method with test data
