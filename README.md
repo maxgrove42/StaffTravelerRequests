@@ -9,6 +9,8 @@ This project provides an automated solution for JetBlue employees for interactin
   - Not necessary if using latest version of chrome
   - NOTE THIS CURRENTLY ONLY WORKS WITH THE LATEST VERSION OF CHROME
   - OTHER BROWSER SUPPORT TO BE ADDED AT A LATER DATE
+- JetBlue Crewmember Active Directory Login with access to ANALYTICS Snowflake database
+- Network I.P. configured to access JetBlue's Snowflake database
 
 ## Setup
 
