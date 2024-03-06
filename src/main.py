@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -7,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
+import re
 
 # Set Chrome options
 chrome_options = Options()
@@ -18,8 +21,8 @@ driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_option
 
 driver.get('https://stafftraveler.app/requests')
 
-USER_NAME = 'xxx@jetblue.com'
-PASSWORD = 'xxxx'
+USER_NAME = 'xxx'
+PASSWORD = 'xxx'
 
 try:
     wait = WebDriverWait(driver, 30)
@@ -40,18 +43,38 @@ try:
         # print("checking elements")
         for element in elements:
             class_attribute = element.get_attribute('class')
-            
+            print(class_attribute)
             # 'css-79elbk' is class of each request
             # 'backdropBlurPolyfill css-1x13gg3' indicates if the request is already taken
-            if 'css-79elbk' in class_attribute and 'backdropBlurPolyfill css-1x13gg3' not in class_attribute:
-                EC.element_to_be_clickable((By.CLASS, "css-79elbk")).click()
+            if ("CURRENTLY BEING ANSWERED" not in element.text):
+                clickable_element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.chakra-collapse')))
+                clickable_element.click()
                 print("found unclaimed flight")
                 #determine the flight information
                 #chakra-text css-1m9eb7l = flight num with B6 prepending
                 #chakra-text css-1tzeee1 = date
-                flightNumber = driver.find_element_by_class_name('chakra-text css-1m9eb7l').text
-                flightDate = driver.find_element_by_class_name('chakra-text css-1tzeee1').text
-                print(flightDate + " on " + flightNumber)
+
+                text = clickable_element.text
+                flight_number_match = re.search(r'B6\d+', text)
+                date_match = re.search(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}(st|nd|rd|th)?',
+                                       text)
+
+                # Clean the date to remove st, nd, rd, th
+                cleaned_date = re.sub(r'(st|nd|rd|th)', '', date_match)
+
+                # Current year and current month for comparison
+                current_year = datetime.now().year
+                current_month = datetime.now().month
+                date_obj = datetime.strptime(f"{cleaned_date} {current_year}", "%b %d %Y")
+
+                # If the extracted date is from a month lower than this month,
+                # assume the date is for next year.
+                if date_obj.month < current_month:
+                    date_obj = date_obj.replace(year=current_year + 1)
+                    # Format the date as "YYYY-MM-DD"
+                formatted_date = date_obj.strftime('%Y-%m-%d')
+
+                print(formatted_date + " on " + flight_number_match)
                 seatSpacesToFillIn = WebDriverWait(driver, 10).until(
                     EC.presence_of_all_elements_located((By.CLASS_NAME, 'chakra-numberinput__field css-gal76r'))
                 )
