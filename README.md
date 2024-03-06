@@ -5,10 +5,10 @@ This project provides an automated solution for JetBlue employees for interactin
 ## Prerequisites
 
 - Python 3.8+
-- Selenium WebDriver for your Browser
-  - Not necessary if using latest version of chrome
-  - NOTE THIS CURRENTLY ONLY WORKS WITH THE LATEST VERSION OF CHROME
-  - OTHER BROWSER SUPPORT TO BE ADDED AT A LATER DATE
+- Selenium WebDriver for Chrome if using Chrome versions 114 and prior: https://chromedriver.chromium.org/downloads
+  - Not necessary if using Chrome versions 115 and newer
+  - NOTE THIS CURRENTLY ONLY WORKS WITH VERSIONS OF CHROME >= 115
+  - PREVIOUS BROWSER VERSION SUPPORT TO BE ADDED
 - JetBlue Crewmember Active Directory Login with access to ANALYTICS Snowflake database
 - Network I.P. configured to access JetBlue's Snowflake database
 
