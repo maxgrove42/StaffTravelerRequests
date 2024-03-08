@@ -25,7 +25,7 @@ class SnowConn:
     def __del__(self):
         self.conn.close()
         
-    def queryStandby(self, flight_number, flight_date):
+    def query_non_revs(self, flight_number, flight_date):
         """
         Queries the database for the total non-rev passengers on a flight\n
         
@@ -33,7 +33,7 @@ class SnowConn:
         - flight_number (int): The flight number to query. Must be an integer.
         - flight_date (str): The start date of the service in 'YYYY-MM-DD' format.
         
-        Returns: The number of non-rev pax (integer)
+        Returns: The number of non-rev pax (integer). Does not separate by cabin.
         """
         # Validate flight_number
         if not isinstance(flight_number, int):
