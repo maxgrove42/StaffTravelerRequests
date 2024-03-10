@@ -1,3 +1,5 @@
+from time import sleep
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -6,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
+import re
 
 
 class MyIdTravelConn:
@@ -31,7 +34,7 @@ class MyIdTravelConn:
         # Search for the email field, type in email, and click it.
         (self.wait.until(EC.element_to_be_clickable((By.ID, "input-airline")))
          .send_keys(MyIdTravelConn.airline, Keys.ENTER))
-
+        sleep(0.5) #just to ensure we can click enter for jetblue typing
         self.wait.until(EC.element_to_be_clickable((By.ID, "user"))).send_keys(user)
         self.wait.until(EC.element_to_be_clickable((By.ID, "password"))).send_keys(pwd)
         self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "loginButton"))).click()  # login
@@ -58,8 +61,30 @@ class MyIdTravelConn:
 
         #now we just need to select the right flight, get the seats and report out.
 
-        flights = self.wait.until(EC.presence_of_all_elements_located(By.CLASS_NAME,
-                                                                      'x-container-default'))
+        #we should probably click load more flights right away...
+
+        self.wait.until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".x-container.flight.x-container-default"))
+        )
+        flights = self.driver.find_elements(By.CSS_SELECTOR, ".x-container.flight.x-container-default")
+
+        my_flight = None
+        for flight in flights:
+            print(flight.text)
+            flight_number = re.search(r'(B6\d+)', flight.text)
+            if flight_number != None:
+                flight_number = flight_number.group(0)
+                if flight_number == flight_num:
+                    my_flight = flight
+                    break
+
+        # need to figure out the select button.
+
+
+        buttons = my_flight.find_elements(By.CSS_SELECTOR, '.x-btn')
+        buttons[0].click()
+
+        #successfully entered into the flight screen!
 
     def __click_continue(self):
         navigation_buttons_container = self.wait.until(EC.presence_of_element_located(
@@ -75,5 +100,5 @@ class MyIdTravelConn:
                 break  # Exit the loop after clicking the desired button
 
 
-myVar = MyIdTravelConn('xxxxx', 'xxxxx')
-myVar.find_seats('jfk', 'mco', '2024-03-08', '569')
+myVar = MyIdTravelConn('xxx', 'xxxx')
+myVar.find_seats('jfk', 'mco', '2024-03-11', 'B6183')
